@@ -6,6 +6,7 @@ const commentsRouter = require('./routes/comments.route');
 const userRouter = require('./routes/user.route');
 const postRouter = require('./routes/post.route');
 const postImageRouter = require('./routes/post_image.route');
+const tagRouter = require('./routes/tag.route');
 
 
 
@@ -14,6 +15,7 @@ app.use('/comments', commentsRouter);
 app.use('/user', userRouter);
 app.use('/post', postRouter);
 app.use('/post_Image', postImageRouter);
+app.use('/tag', tagRouter);
 
 
 app.listen(PORT, async (err) =>{
