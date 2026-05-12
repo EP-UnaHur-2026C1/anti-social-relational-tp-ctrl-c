@@ -15,11 +15,19 @@ const getUserById = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
-    const { nickName } = req.body;
-    const newUser = await User.create({
-        nickName
-    });
-    res.status(201).json(newUser);
+    try {
+        const {nickName} = req.body;
+        const newUser = await User.create({
+            nickName
+        });
+        res.status(201).json(newUser);
+    }
+    catch (error) {
+        console.error('Error name:', error.name);
+        console.error('Error message:', error.message);
+        console.error('Error errors:', error.errors);
+    }
+
 };
 
 

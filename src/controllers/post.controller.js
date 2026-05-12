@@ -14,12 +14,19 @@ const getPostById = async (req, res) => {
 };
 
 const createPost = async (req, res) => {
-    const { texto, fecha } = req.body;
-    const Post = await Post.create({
-        texto,
-        fecha,
-    });
-    res.status(201).json(Post);
+    try {
+        const {texto, fecha} = req.body;
+        const newPost = await Post.create({
+            texto,
+            fecha,
+        });
+        res.status(201).json(newPost);
+    }
+    catch (error) {
+        console.error('Error name:', error.name);
+        console.error('Error message:', error.message);
+        console.error('Error errors:', error.errors);
+    }
 };
 const updatePost = async (req, res) => {
     const id = req.params.id;

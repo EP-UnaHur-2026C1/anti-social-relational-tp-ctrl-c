@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       Post.belongsToMany(models.Tag, {through: 'Post_Tags', as: 'tags',foreignKey: 'post_id'});
       Post.hasMany(models.Comment, {foreignKey: 'post_id'});
       Post.hasMany(models.Post_Image, {foreignKey: 'post_id'});
+      Post.belongsTo(models.User, {foreignKey: 'user_id'});
     }
   }
   Post.init({

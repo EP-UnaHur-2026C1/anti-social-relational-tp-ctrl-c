@@ -2,6 +2,30 @@
 POST http://localhost:3000/comments/create
 Content-Type: application/json
 
+{
+  "contenido": "Comentario 2",
+  "fecha": "2024-06-01T12:00:00Z",
+  "es_visible": true,
+  "post_id": 1,
+  "user_id": 1
+}
+
+###
+POST http://localhost:3000/post/create
+Content-Type: application/json
+
+{
+  "texto": "Post 2",
+  "fecha": "2024-06-01T12:00:00Z",
+  "user_id": 1
+
+}
 
 
 ###
+POST http://localhost:3000/user/create
+Content-Type: application/json
+
+{
+ "nickName": "usuario 1"
+}
