@@ -15,22 +15,14 @@ const getCommentById = async (req, res) => {
 };
 
 const createComment = async (req, res) => {
-    const { contenido, fecha, es_visible } = req.body;
-    const comment = await Comment.create({
-        contenido,
-        fecha,
-        es_visible
-    });
+    const data = req.body;
+    const comment = await Comment.create(data);
     res.status(201).json(comment);
 };
 const updateComment = async (req, res) => {
     const id = req.params.id;
-    const { contenido, fecha, es_visible } = req.body;
-    const newComment = await Comment.update({
-        contenido,
-        fecha,
-        es_visible
-    }, {
+    const data = req.body;
+    const newComment = await Comment.update(data , {
         where: {id}
         }
     )

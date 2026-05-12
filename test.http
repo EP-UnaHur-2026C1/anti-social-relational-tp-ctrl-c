@@ -15,7 +15,7 @@ POST http://localhost:3000/post/create
 Content-Type: application/json
 
 {
-  "texto": "Post 2",
+  "texto": "Post 1",
   "fecha": "2024-06-01T12:00:00Z",
   "user_id": 1
 

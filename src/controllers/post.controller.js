@@ -15,11 +15,8 @@ const getPostById = async (req, res) => {
 
 const createPost = async (req, res) => {
     try {
-        const {texto, fecha} = req.body;
-        const newPost = await Post.create({
-            texto,
-            fecha,
-        });
+        const data = req.body;
+        const newPost = await Post.create(data);
         res.status(201).json(newPost);
     }
     catch (error) {
