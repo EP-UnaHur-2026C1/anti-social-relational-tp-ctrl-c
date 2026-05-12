@@ -26,14 +26,14 @@ const createUser = async (req, res) => {
 const updateUser = async (req, res) => {
     const id = req.params.id;
     const { nickName } = req.body;
-    const useUpdate = await User.update({
+    const userUpdate = await User.update({
         nickName
     }, {
         where: {id}
         }
     )
 
-   res.status(200).json(useUpdate);
+   res.status(200).json(userUpdate);
 }
 
 
@@ -42,7 +42,7 @@ const deleteUser = async (req, res) => {
     await User.destroy({
         where: {id}
     });
-    res.status(204).json({message: 'Comentario eliminado'});
+    res.status(204).json({message: 'Usuario eliminado'});
 }
 
 
