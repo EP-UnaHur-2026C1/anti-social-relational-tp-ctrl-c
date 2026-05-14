@@ -1,8 +1,8 @@
 const {Router} = require('express');
 const router = Router();
-const {getTag, getTagById, createTag,updateTag, deleteTag} = require('../controllers/tag.controller')
+const {getTags, getTagById, createTag,updateTag, deleteTag} = require('../controllers/tag.controller')
 
-router.get('/', getTag)
+router.get('/', getTags)
 router.get('/:id', getTagById)
 router.post('/create', createTag)
 router.put('/:id', updateTag)

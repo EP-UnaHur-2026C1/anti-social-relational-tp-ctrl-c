@@ -12,10 +12,10 @@ const tagRouter = require('./routes/tag.route');
 
 app.use(express.json());
 app.use('/comments', commentsRouter);
-app.use('/user', userRouter);
-app.use('/post', postRouter);
-app.use('/post_Image', postImageRouter);
-app.use('/tag', tagRouter);
+app.use('/users', userRouter);
+app.use('/posts', postRouter);
+app.use('/post_Images', postImageRouter);
+app.use('/tags', tagRouter);
 
 
 app.listen(PORT, async (err) =>{

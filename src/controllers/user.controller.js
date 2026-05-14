@@ -1,17 +1,25 @@
 const { User } = require('../db/models');
 
 
-const getUser = async (req, res) => {
-    const users = await User.findAll();
-    res.status(200).json(users);
+const getUsers = async (req, res) => {
+    try{
+        const users = await User.findAll();
+        res.status(200).json(users);
+    }catch (error) {
+        res.status(500).json({message: 'Error al obtener los usuarios'});
+    }
 };
 
 
 const getUserById = async (req, res) => {
-    const id = req.params.id;
-    const user = await User.findByPk(id);
+    try {
+        const id = req.params.id;
+        const user = await User.findByPk(id);
 
-    res.status(200).json(user);
+        res.status(200).json(user);
+    }catch (error) {
+        res.status(500).json({message: `Error al obtener el usuario`});
+    }
 };
 
 const createUser = async (req, res) => {
@@ -23,36 +31,42 @@ const createUser = async (req, res) => {
         res.status(201).json(newUser);
     }
     catch (error) {
-        console.error('Error name:', error.name);
-        console.error('Error message:', error.message);
-        console.error('Error errors:', error.errors);
+        res.status(500).json({message: 'Error al crear el usuario'});
     }
 
 };
 
 
 const updateUser = async (req, res) => {
-    const id = req.params.id;
-    const { nickName } = req.body;
-    const userUpdate = await User.update({
-        nickName
-    }, {
-        where: {id}
-        }
-    )
+    try {
+        const id = req.params.id;
+        const {nickName} = req.body;
+        const userUpdate = await User.update({
+                nickName
+            }, {
+                where: {id}
+            }
+        )
 
-   res.status(200).json(userUpdate);
+        res.status(200).json(userUpdate);
+    }catch (error) {
+        res.status(500).json({message: 'Error al actualizar el usuario'});
+    }
 }
 
 
 const deleteUser = async (req, res) => {
-    const id = req.params.id;
-    await User.destroy({
-        where: {id}
-    });
-    res.status(204).json({message: 'Usuario eliminado'});
+    try {
+        const id = req.params.id;
+        await User.destroy({
+            where: {id}
+        });
+        res.status(204).json({message: 'Usuario eliminado'});
+    }catch (error) {
+        res.status(500).json({message: 'Error al eliminar el usuario'});
+    }
 }
 
 
 
-module.exports = {getUser, getUserById,createUser,updateUser,deleteUser}
+module.exports = {getUsers, getUserById,createUser,updateUser,deleteUser}

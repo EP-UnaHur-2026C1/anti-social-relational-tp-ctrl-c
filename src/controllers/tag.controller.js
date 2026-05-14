@@ -1,17 +1,26 @@
 const { Tag } = require('../db/models');
 
-const getTag = async (req, res) => {
-    const tag = await Tag.findAll();
-    res.status(200).json(tag);
-
+const getTags = async (req, res) => {
+    try {
+        const tag = await Tag.findAll();
+        res.status(200).json(tag);
+    }
+    catch (error) {
+        res.status(500).json({message: 'Error al obtener las tags'});
+    }
 };
 
 
 const getTagById = async (req, res) => {
-    const id = req.params.id;
-    const tag = await Tag.findByPk(id);
+    try {
+        const id = req.params.id;
+        const tag = await Tag.findByPk(id);
 
-    res.status(200).json(tag);
+        res.status(200).json(tag);
+    }
+    catch (error) {
+        res.status(500).json({message: `Error al obtener el tag`});
+    }
 };
 
 const createTag = async (req, res) => {
@@ -21,27 +30,35 @@ const createTag = async (req, res) => {
         res.status(201).json(newTag);
     }
     catch (error) {
-        res.status(500);
+        res.status(500).json({message: 'Error al crear el tag'});
     }
 };
 const updateTag = async (req, res) => {
-    const id = req.params.id;
-    const actualizacion = req.body;
-    const newTag = await Tag.update({
-       actualizacion
-    }, {
-        where: {id}
-        }
-    )
-res.status(200).json(newTag);
+    try {
+        const id = req.params.id;
+        const actualizacion = req.body;
+        const newTag = await Tag.update({
+                actualizacion
+            }, {
+                where: {id}
+            }
+        )
+        res.status(200).json(newTag);
+    }catch (error) {
+        res.status(500).json({message: 'Error al actualizar el tag'});
+    }
 }
 
 const deleteTag = async (req, res) => {
-    const id = req.params.id;
-    await Tag.destroy({
-        where: {id}
-    });
-    res.status(204).json({message: 'Tag eliminado'});
+    try {
+        const id = req.params.id;
+        await Tag.destroy({
+            where: {id}
+        });
+        res.status(204).json({message: 'Tag eliminado'});
+    }catch (error) {
+        res.status(500).json({message: 'Error al eliminar el tag'});
+    }
 }
 
-module.exports = {getTag, getTagById, createTag,updateTag, deleteTag};
+module.exports = {getTags, getTagById, createTag,updateTag, deleteTag};

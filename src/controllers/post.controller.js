@@ -1,16 +1,24 @@
 const { Post } = require('../db/models');
 
-const getPost = async (req, res) => {
-    const post = await Post.findAll();
-    res.status(200).json(post);
+const getPosts = async (req, res) => {
+    try {
+        const post = await Post.findAll();
+        res.status(200).json(post);
+    }catch (error) {
+        res.status(500).json({message: 'Error al obtener los posts'});
+    }
 };
 
 
 const getPostById = async (req, res) => {
-    const id = req.params.id;
-    const post = await Post.findByPk(id);
+    try {
+        const id = req.params.id;
+        const post = await Post.findByPk(id);
 
-    res.status(200).json(post);
+        res.status(200).json(post);
+    }catch (error) {
+        res.status(500).json({message: `Error al obtener el post`});
+    }
 };
 
 const createPost = async (req, res) => {
@@ -20,30 +28,36 @@ const createPost = async (req, res) => {
         res.status(201).json(newPost);
     }
     catch (error) {
-        console.error('Error name:', error.name);
-        console.error('Error message:', error.message);
-        console.error('Error errors:', error.errors);
+        res.status(500).json({message: 'Error al crear el post'});
     }
 };
 const updatePost = async (req, res) => {
-    const id = req.params.id;
-    const { texto, fecha } = req.body;
-    const newPost = await Post.update({
-       texto,
-       fecha
-    }, {
-        where: {id}
-        }
-    )
-res.status(200).json(newPost);
+    try {
+        const id = req.params.id;
+        const {texto, fecha} = req.body;
+        const newPost = await Post.update({
+                texto,
+                fecha
+            }, {
+                where: {id}
+            }
+        )
+        res.status(200).json(newPost);
+    }catch (error) {
+        res.status(500).json({message: 'Error al actualizar el post'});
+    }
 }
 
 const deletePost = async (req, res) => {
-    const id = req.params.id;
-    await Post.destroy({
-        where: {id}
-    });
-    res.status(204).json({message: 'Post eliminado'});
+    try {
+        const id = req.params.id;
+        await Post.destroy({
+            where: {id}
+        });
+        res.status(204).json({message: 'Post eliminado'});
+    }catch (error) {
+        res.status(500).json({message: 'Error al eliminar el post'});
+    }
 }
 
-module.exports = {getPost, getPostById, createPost,updatePost, deletePost};
+module.exports = {getPosts, getPostById, createPost,updatePost, deletePost};
