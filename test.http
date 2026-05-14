@@ -34,4 +34,9 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/comments/
 ###
-GET http://localhost:3000/users/
+GET http://localhost:3000/users/6
+
+###
+GET http://localhost:3000/comments/6
+###
+GET http://localhost:3000/tags/1
