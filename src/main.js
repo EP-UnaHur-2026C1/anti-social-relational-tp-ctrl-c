@@ -23,7 +23,7 @@ app.listen(PORT, async (err) =>{
         console.error(err);
         process.exit(1);
     }
-    await db.sync();
+    await db.sync({force:true});
     console.log(`Server is running on port ${PORT}`);
 })
 

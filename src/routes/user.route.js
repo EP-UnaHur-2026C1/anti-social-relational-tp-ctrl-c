@@ -18,6 +18,6 @@ router.get('/:id/comments',middleware.validaIdNumerico, middleware.validaExisteM
 router.get('/:id/posts',middleware.validaIdNumerico, middleware.validaExisteMiddleware(User) ,getPostsByUserId)
 router.post('/create',schemaValidator(userSchema), createUser)
 router.put('/:id',middleware.validaIdNumerico ,middleware.validaExisteMiddleware(User), updateUser)
-router.delete('/:id',middleware.validaIdNumerico ,middleware.validaExisteMiddleware(User), deleteUser)
+router.delete('/:id',middleware.validaIdNumerico, middleware.validaExisteMiddleware(User), deleteUser)
 
 module.exports = router;

@@ -3,8 +3,8 @@ POST http://localhost:3000/comments/create
 Content-Type: application/json
 
 {
-  "contenido": "Comentario 2",
-  "fecha": "2024-06-01T12:00:00Z",
+  "contenido": "Comentario 3",
+  "fecha": "2024-05-15T12:00:00Z",
   "es_visible": true,
   "post_id": 1,
   "user_id": 1
@@ -27,12 +27,12 @@ POST http://localhost:3000/users/create
 Content-Type: application/json
 
 {
-  "nickName": "usuario 3"
+  "nickName": "usuario 1"
 }
 
 
 ###
-GET http://localhost:3000/comments/
+GET http://localhost:3000/comments/3
 ###
 GET http://localhost:3000/users/6
 

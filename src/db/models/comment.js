@@ -18,11 +18,22 @@ module.exports = (sequelize, DataTypes) => {
   Comment.init({
     contenido: DataTypes.TEXT,
     fecha: DataTypes.DATEONLY,
-    es_visible: DataTypes.BOOLEAN
-  }, {
+    es_visible: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        const fechaComentario = new Date(this.fecha);
+        const fechaActual = new Date();
+        const diferenciaMeses = (fechaActual.getFullYear() - fechaComentario.getFullYear()) * 12 + (fechaActual.getMonth() - fechaComentario.getMonth());
+        return diferenciaMeses < 6;
+      }
+  },
+  },
+      {
     sequelize,
     modelName: 'Comment',
-    timestamps: false
+    timestamps: false,
+
   });
+
   return Comment;
 };

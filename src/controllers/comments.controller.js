@@ -14,7 +14,9 @@ const getComments = async (req, res) => {
 const getCommentById = async (req, res) => {
     try {
         const id = req.params.id;
-        const comment = await Comment.findByPk(id);
+        const comment = await Comment.findByPk(id,{
+            attributes:['id','contenido','fecha','es_visible_calculado']
+        });
 
         res.status(200).json(comment);
     }catch (error) {

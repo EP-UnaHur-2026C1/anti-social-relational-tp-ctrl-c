@@ -8,6 +8,6 @@ router.get('/',getComments)
 router.get('/:id',middleware.validaIdNumerico,middleware.validaExisteMiddleware(Comment), getCommentById)
 router.post('/create', createComment)
 router.put('/:id',middleware.validaIdNumerico ,updateComment)
-router.delete('/:id',middleware.validaIdNumerico, deleteComment)
+router.delete('/:id',middleware.validaIdNumerico,middleware.validaExisteMiddleware ,deleteComment)
 
 module.exports = router;

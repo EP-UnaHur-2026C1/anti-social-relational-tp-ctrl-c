@@ -20,6 +20,6 @@ router.get('/:id/comments',middleware.validaIdNumerico,middleware.validaExisteMi
 router.get('/:id/tags',middleware.validaIdNumerico,middleware.validaExisteMiddleware(Post), getTagsByPostId)
 router.post('/create', createPost)
 router.put('/:id',middleware.validaIdNumerico,middleware.validaExisteMiddleware(Post), updatePost)
-router.delete('/:id',middleware.validaIdNumerico,middleware.validaExisteMiddleware(Post) ,deletePost)
+router.delete('/:id',middleware.validaIdNumerico, middleware.validaExisteMiddleware(Post) ,deletePost)
 
 module.exports = router;
