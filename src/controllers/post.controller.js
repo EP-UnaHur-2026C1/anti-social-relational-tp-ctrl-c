@@ -79,4 +79,70 @@ const deletePost = async (req, res) => {
     }
 }
 
-module.exports = {getPosts, getPostById, createPost,updatePost, deletePost};
+const getUserByIdPost = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const user = await Post.findOne({
+            where: {id},
+            include: {
+                model: User,
+                as: 'usuario',
+                attributes: ['nickName']
+            }
+
+        })
+        res.status(200).json(user.usuario);
+    }catch (error) {
+        res.status(500).json({message: 'Error al obtener el usuario del post'});
+    }
+}
+const getCommentsByPostId = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const post = await Post.findOne({
+            where: {id},
+            include: [{
+                model: Comment,
+                as: 'comentarios',
+                attributes:['contenido', 'fecha']
+            }]
+        })
+        res.status(200).json(post.comentarios);
+    }catch (error) {
+        res.status(500).json({message: 'Error al obtener los comentarios del post'});
+    }
+}
+
+const getTagsByPostId = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const post = await Post.findOne({
+            where: {id},
+            include: [{
+                model: Tag,
+                as: 'tags',
+                attributes: ['name'],
+                through: {attributes: []}
+            }]
+        })
+        res.status(200).json(post.tags);
+    } catch (error) {
+        res.status(500).json({message: 'Error al obtener los tags del post'});
+    }
+
+}
+
+
+
+
+
+module.exports = {
+    getPosts,
+    getPostById,
+    getUserByIdPost,
+    getCommentsByPostId,
+    getTagsByPostId,
+    createPost,
+    updatePost,
+    deletePost
+};
