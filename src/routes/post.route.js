@@ -2,6 +2,8 @@ const {Router} = require('express');
 const router = Router();
 const middleware = require('../middlewares/validaciones.middleware');
 const {Post} = require('../db/models');
+const schemaValidator = require('../middlewares/schemaValidator.middleware')
+const postSchema = require('../schemas/post.schema')
 const {getPosts,
     getPostById,
     getUserByIdPost,
@@ -18,7 +20,7 @@ router.get('/:id',middleware.validaIdNumerico,middleware.validaExisteMiddleware(
 router.get('/:id/user',middleware.validaIdNumerico,middleware.validaExisteMiddleware(Post), getUserByIdPost)
 router.get('/:id/comments',middleware.validaIdNumerico,middleware.validaExisteMiddleware(Post), getCommentsByPostId)
 router.get('/:id/tags',middleware.validaIdNumerico,middleware.validaExisteMiddleware(Post), getTagsByPostId)
-router.post('/create', createPost)
+router.post('/create',middleware.schemaValidator(postSchema), createPost)
 router.put('/:id',middleware.validaIdNumerico,middleware.validaExisteMiddleware(Post), updatePost)
 router.delete('/:id',middleware.validaIdNumerico, middleware.validaExisteMiddleware(Post) ,deletePost)
 
