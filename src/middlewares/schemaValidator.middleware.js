@@ -18,3 +18,4 @@ const schemaValidator = (schema) => {
 }
 
 module.exports = schemaValidator;
+
