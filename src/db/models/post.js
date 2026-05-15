@@ -12,9 +12,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Post.belongsToMany(models.Tag, {through: 'Post_Tags', as: 'tags',foreignKey: 'post_id'});
-      Post.hasMany(models.Comment, {foreignKey: 'post_id'});
-      Post.hasMany(models.Post_Image, {foreignKey: 'post_id'});
-      Post.belongsTo(models.User, {foreignKey: 'user_id'});
+      Post.hasMany(models.Comment, {foreignKey: 'post_id', as: 'comentarios'});
+      Post.hasMany(models.Post_Image, {foreignKey: 'post_id', as: 'image'});
+      Post.belongsTo(models.User, {foreignKey: 'user_id', as: 'usuario' });
     }
   }
   Post.init({

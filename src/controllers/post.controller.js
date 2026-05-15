@@ -1,4 +1,4 @@
-const { Post } = require('../db/models');
+const { Post,Comment,User,Tag,Post_Image } = require('../db/models');
 
 const getPosts = async (req, res) => {
     try {
@@ -13,7 +13,26 @@ const getPosts = async (req, res) => {
 const getPostById = async (req, res) => {
     try {
         const id = req.params.id;
-        const post = await Post.findByPk(id);
+        const post = await Post.findByPk(id, {
+            include: [
+                {
+                    model: Comment,
+                    as: 'comentarios'
+                },
+                {
+                    model: User,
+                    as: 'usuario'
+                },
+                {
+                    model: Tag,
+                    as: 'tags'
+                },
+                {
+                    model: Post_Image,
+                    as: 'image'
+                }
+            ]
+        });
 
         res.status(200).json(post);
     }catch (error) {

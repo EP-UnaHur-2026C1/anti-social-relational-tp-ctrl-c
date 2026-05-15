@@ -1,4 +1,4 @@
-const { User } = require('../db/models');
+const { User, Comment,Post } = require('../db/models');
 
 
 const getUsers = async (req, res) => {
@@ -67,6 +67,47 @@ const deleteUser = async (req, res) => {
     }
 }
 
+const getCommentsByUserId = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const user = await User.findOne({
+            where: {id},
+            include: {
+                model: Comment,
+                as: 'comentarios'
+            }
+        });
+        res.status(200).json(user.comentarios);
+    }catch (error) {
+        res.status(500).json({message: 'Error al obtener los comentarios del usuario'});
+    }
+}
+
+const getPostsByUserId = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const user = await User.findOne({
+            where: {id},
+            include: {
+                model: Post,
+                as: 'posts',
+                attributes:['id','texto','fecha']
+            }
+        });
+        res.status(200).json(user.posts);
+    }catch (error) {
+        res.status(500).json({message: 'Error al obtener los posts del usuario'});
+    }
+}
 
 
-module.exports = {getUsers, getUserById,createUser,updateUser,deleteUser}
+
+
+module.exports = {getUsers,
+    getUserById,
+    getPostsByUserId,
+    createUser,
+    updateUser,
+    deleteUser,
+    getCommentsByUserId
+}
