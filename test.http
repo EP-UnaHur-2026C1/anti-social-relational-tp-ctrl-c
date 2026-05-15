@@ -27,7 +27,7 @@ POST http://localhost:3000/users/create
 Content-Type: application/json
 
 {
- "nickName": "usuario 1"
+  "nickName": "usuario 3"
 }
 
 
