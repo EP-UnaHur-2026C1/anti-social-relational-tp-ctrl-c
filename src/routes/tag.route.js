@@ -4,12 +4,12 @@ const {getTags, getTagById, createTag,updateTag, deleteTag} = require('../contro
 const middleware = require('../middlewares/validaciones.middleware')
 const {Tag} = require('../db/models')
 const schemaValidator = require('../middlewares/schemaValidator.middleware')
-const userSchema = require('../schemas/user.schema')
+const tagSchema = require('../schemas/tag.schema')
 
 router.get('/', getTags)
 router.get('/:id',middleware.validaIdNumerico,middleware.validaExisteMiddleware(Tag), getTagById)
-router.post('/create',schemaValidator(userSchema), createTag)
-router.put('/:id',middleware.validaIdNumerico,middleware.validaExisteMiddleware(Tag), updateTag)
+router.post('/create',schemaValidator(tagSchema), createTag)
+router.put('/:id',schemaValidator(tagSchema), middleware.validaIdNumerico,middleware.validaExisteMiddleware(Tag), updateTag)
 router.delete('/:id',middleware.validaIdNumerico,middleware.validaExisteMiddleware(Tag), deleteTag)
 
 module.exports = router;

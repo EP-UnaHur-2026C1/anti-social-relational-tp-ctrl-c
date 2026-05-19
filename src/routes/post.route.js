@@ -20,8 +20,8 @@ router.get('/:id',middleware.validaIdNumerico,middleware.validaExisteMiddleware(
 router.get('/:id/user',middleware.validaIdNumerico,middleware.validaExisteMiddleware(Post), getUserByIdPost)
 router.get('/:id/comments',middleware.validaIdNumerico,middleware.validaExisteMiddleware(Post), getCommentsByPostId)
 router.get('/:id/tags',middleware.validaIdNumerico,middleware.validaExisteMiddleware(Post), getTagsByPostId)
-router.post('/create',middleware.schemaValidator(postSchema), createPost)
-router.put('/:id',middleware.validaIdNumerico,middleware.validaExisteMiddleware(Post), updatePost)
+router.post('/create',schemaValidator(postSchema), createPost)
+router.put('/:id',schemaValidator(postSchema), middleware.validaIdNumerico,middleware.validaExisteMiddleware(Post), updatePost)
 router.delete('/:id',middleware.validaIdNumerico, middleware.validaExisteMiddleware(Post) ,deletePost)
 
 module.exports = router;

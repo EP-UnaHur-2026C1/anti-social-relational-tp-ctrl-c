@@ -1,4 +1,6 @@
-const Joi = require('joi')
+const BaseJoi = require('joi')
+const JoiDate = require('@joi/date')
+const Joi = BaseJoi.extend(JoiDate)
 
 const schema = Joi.object({
     fecha: Joi.date().required().format('YYYY-MM-DD').min('2020-01-01').messages({
