@@ -19,7 +19,14 @@ module.exports = (sequelize, DataTypes) => {
   }
   Post.init({
     texto: DataTypes.TEXT,
-    fecha: DataTypes.DATEONLY
+    fecha: {
+      type:DataTypes.DATEONLY,
+      defaultValue: DataTypes.NOW
+    },
+    user_id:{
+      type: DataTypes.INTEGER,
+      allowNull:false
+    }
   }, {
     sequelize,
     modelName: 'Post',

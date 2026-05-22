@@ -1,7 +1,7 @@
 const validaIdNumerico =(req,res,next) => {
-    const id = req.params.id;
-    if (isNaN(id)) {
-        return res.status(400).json({ error: 'El ID debe ser un número' });
+    const id = req.params.id
+    if (!Number.isInteger(+id) || +id <= 0) {
+        return res.status(400).json({ error: 'El ID debe ser un número entero positivo' });
     }
     next();
 }

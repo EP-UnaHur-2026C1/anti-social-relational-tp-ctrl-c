@@ -42,8 +42,12 @@ const getPostById = async (req, res) => {
 
 const createPost = async (req, res) => {
     try {
-        const data = req.body;
-        const newPost = await Post.create(data);
+        const userId = Number(req.params.id)
+        const {texto} = req.body;
+        const newPost = await Post.create({
+            texto,
+            user_id: userId
+        });
         res.status(201).json(newPost);
     }
     catch (error) {
@@ -52,7 +56,7 @@ const createPost = async (req, res) => {
 };
 const updatePost = async (req, res) => {
     try {
-        const id = req.params.id;
+        const id = req.params.userId;
         const {texto, fecha} = req.body;
         const newPost = await Post.update({
                 texto,
@@ -75,6 +79,7 @@ const deletePost = async (req, res) => {
         });
         res.status(204).json({message: 'Post eliminado'});
     }catch (error) {
+        console.log("Error: ", error)
         res.status(500).json({message: 'Error al eliminar el post'});
     }
 }

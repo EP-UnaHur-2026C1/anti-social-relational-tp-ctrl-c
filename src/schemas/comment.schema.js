@@ -15,7 +15,8 @@ const schema = Joi.object({
         "string.base": "El contenido debe ser una cadena de texto",
         "string.min": "El contenido debe tener como minimo {#limit} caracteres",
         "string.max": "El contenido debe tener como maximo {#limit} caracteres",
-    })
+    }),
+    post_id: Joi.number().integer().positive().messages({})
 })
 
 module.exports = schema;
