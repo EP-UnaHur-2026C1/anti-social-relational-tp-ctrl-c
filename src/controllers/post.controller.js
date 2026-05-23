@@ -137,9 +137,20 @@ const getTagsByPostId = async (req, res) => {
 
 }
 
+const addTagToPost = async (req, res) => {
+    try {
+        const postId = Number(req.params.id);
+        const {tag_id} = req.body;
+        const post = await Post.findByPk(postId);
 
+        await post.addTag(tag_id);
+        res.status(200).json({message: 'Tag agregado al post'});
 
+    } catch (error) {
+        res.status(500).json({message: 'Error al agregar el tag al post'});
+    }
 
+}
 
 module.exports = {
     getPosts,
@@ -149,5 +160,6 @@ module.exports = {
     getTagsByPostId,
     createPost,
     updatePost,
-    deletePost
+    deletePost,
+    addTagToPost
 };

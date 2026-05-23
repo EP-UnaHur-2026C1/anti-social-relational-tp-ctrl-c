@@ -3,8 +3,9 @@ POST http://localhost:3000/comments/create
 Content-Type: application/json
 
 {
-  "contenido": "Comentario 4",
-  "fecha": "2026-02-03"
+    "contenido": "Comentario 4",
+    "post_id": 1,
+    "user_id": 1
 }
 
 ###
@@ -25,6 +26,20 @@ Content-Type: application/json
   "nickName": "usuario 1"
 }
 
+###
+POST http://localhost:3000/tags/create
+Content-Type: application/json
+
+{
+  "name": "tag 1"
+}
+###
+POST http://localhost:3000/posts/1/create-tag
+Content-Type: application/json
+
+{
+  "tag_id": 1
+}
 
 ###
 GET http://localhost:3000/comments/3

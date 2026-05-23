@@ -17,7 +17,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Comment.init({
     contenido: DataTypes.TEXT,
-    fecha: DataTypes.DATEONLY,
+    fecha: {
+        type:DataTypes.DATEONLY,
+        defaultValue: DataTypes.NOW
+    },
     es_visible: {
       type: DataTypes.VIRTUAL,
       get() {

@@ -11,7 +11,9 @@ const {getPosts,
     getTagsByPostId,
     createPost,
     updatePost,
-    deletePost
+    deletePost,
+    addTagToPost
+
 } = require('../controllers/post.controller');
 
 
@@ -20,6 +22,12 @@ router.get('/:id',middleware.validaIdNumerico,middleware.validaExisteMiddleware(
 router.get('/:id/user',middleware.validaIdNumerico,middleware.validaExisteMiddleware(Post), getUserByIdPost)
 router.get('/:id/comments',middleware.validaIdNumerico,middleware.validaExisteMiddleware(Post), getCommentsByPostId)
 router.get('/:id/tags',middleware.validaIdNumerico,middleware.validaExisteMiddleware(Post), getTagsByPostId)
+
+router.post('/:id/create-tag',
+    middleware.validaIdNumerico,
+    middleware.validaExisteMiddleware(Post),
+    addTagToPost
+)
 
 
 router.post('/create/:id',

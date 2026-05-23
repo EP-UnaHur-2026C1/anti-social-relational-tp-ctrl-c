@@ -26,6 +26,7 @@ const getCommentById = async (req, res) => {
 
 const createComment = async (req, res) => {
     try {
+
         const data = req.body;
         const comment = await Comment.create(data);
         res.status(201).json(comment);
