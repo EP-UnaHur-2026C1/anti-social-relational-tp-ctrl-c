@@ -1,0 +1,138 @@
+openapi: 3.0.0
+info:
+  title: "UNAHUR Anti-social Net API"
+  description: "API MVP para la red social Anti-social Net de la UNAHUR"
+  version: "1.0.0"
+servers:
+    - url: "http://localhost:3000"
+      description: "Servidor local"
+
+paths:
+  # -------------------- USERS --------------------
+  /users:
+    get:
+      summary: "Obtener todos los usuarios"
+      tags: [Users]
+      responses:
+        '200':
+          description: "Lista de usuarios devuelta exitosamente"
+
+  /users/create:
+    post:
+      summary: "Crear un nuevo usuario"
+      tags: [Users]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+      responses:
+        '201':
+          description: "Usuario creado"
+        '400':
+          description: "Error de validación (Ej: nickName corto)"
+
+  # -------------------- POSTS --------------------
+  /posts:
+    get:
+      summary: "Obtener todos los posts"
+      tags: [Posts]
+      responses:
+        '200':
+          description: "Lista de posts devuelta exitosamente"
+
+  /posts/create/{id}:
+    post:
+      summary: "Crear un nuevo post para un usuario específico"
+      tags: [Posts]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "ID del usuario que crea el post"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostCreate'
+      responses:
+        '201':
+          description: "Post creado"
+        '400':
+          description: "ID inválido o error de validación"
+        '404':
+          description: "Usuario no encontrado"
+
+  /posts/{id}:
+    get:
+      summary: "Obtener un post específico por su ID"
+      tags: [Posts]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "ID del post a buscar"
+      responses:
+        '200':
+          description: "Post devuelto exitosamente (incluye comentarios, tags e imágenes)"
+        '404':
+          description: "Post no encontrado"
+
+  /posts/{id}/create-tag:
+    post:
+      summary: "Asociar un Tag existente a un Post existente"
+      tags: [Posts]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "ID del Post"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tag_id:
+                  type: integer
+                  example: 1
+      responses:
+        '200':
+          description: "Tag agregado al post"
+        '404':
+          description: "Post o Tag no encontrado"
+
+components:
+  schemas:
+    # --- Esquemas definidos según tus Joi Schemas ---
+    createUser:
+      type: object
+      required:
+        - nickName
+      properties:
+        nickName:
+          type: string
+          minLength: 5
+          maxLength: 30
+          example: "juanperez"
+
+    createPost:
+      type: object
+      required:
+        - texto
+      properties:
+        texto:
+          type: string
+          minLength: 1
+          maxLength: 500
+          example: "¡Este es mi primer post en Anti-Social Net!"
+
