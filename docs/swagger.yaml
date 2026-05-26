@@ -8,6 +8,103 @@ servers:
       description: "Servidor local"
 
 paths:
+  #--------------------- Comments ---------------------
+
+  /comments:
+    get:
+      summary: "Obtener todos los comentarios"
+      tags: [ Comments ]
+      responses:
+        '200':
+          description: "Lista de comentarios obtenida exitosamente"
+
+
+  /comments/{id}:
+    get:
+      summary: "Obtener un comentario por ID"
+      tags: [ Comments ]
+      parameters:
+          - in: path
+            name: id
+            required: true
+            schema:
+              type: integer
+      responses:
+            '200':
+                description: "Comentario obtenido exitosamente"
+            '404':
+                description: "Comentario no encontrado"
+
+    put:
+        summary: "Actualizar un comentario por ID"
+        tags: [ Comments ]
+        parameters:
+            - in: path
+              name: id
+              required: true
+              schema:
+                type: integer
+        requestBody:
+            required: true
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            content:
+                                type: string
+                                example: "Comentario actualizado"
+        responses:
+                '200':
+                    description: "Comentario actualizado exitosamente"
+                '404':
+                    description: "Comentario no encontrado"
+
+    delete:
+      summary: "Eliminar un comentario por ID"
+      tags: [ Comments ]
+      parameters:
+          - in: path
+            name: id
+            required: true
+            schema:
+              type: integer
+      responses:
+            '204':
+                description: "Comentario eliminado exitosamente"
+            '404':
+                description: "Comentario no encontrado"
+
+
+  /comments/create:
+    post:
+      summary: "Crear un nuevo comentario"
+      tags: [ Comments ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  example: "Este es un comentario de ejemplo."
+                authorId:
+                  type: integer
+                  example: 1
+                postId:
+                  type: integer
+                  example: 1
+      responses:
+        '201':
+          description: "Comentario creado exitosamente"
+        '400':
+          description: "Solicitud inválida"
+
+
+
+
   # -------------------- USERS --------------------
   /users:
     get:
