@@ -1,4 +1,4 @@
-const { Tag } = require('../db/models');
+const { Tag, Post } = require('../db/models');
 
 const getTags = async (req, res) => {
     try {
@@ -14,7 +14,14 @@ const getTags = async (req, res) => {
 const getTagById = async (req, res) => {
     try {
         const id = req.params.id;
-        const tag = await Tag.findByPk(id);
+        const tag = await Tag.findByPk(id,{
+            include:[
+                {
+                    model: Post,
+                    as: 'posts',
+                }
+            ]
+        });
 
         res.status(200).json(tag);
     }

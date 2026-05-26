@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: "UNAHUR Anti-social Net API"
   description: "API MVP para la red social Anti-social Net de la UNAHUR"
-  version: "1.0.0"
+  version: "1.0.1"
 servers:
     - url: "http://localhost:3000"
       description: "Servidor local"
@@ -26,7 +26,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserCreate'
+              $ref: '#/components/schemas/createUser'
       responses:
         '201':
           description: "Usuario creado"
@@ -42,7 +42,7 @@ paths:
         '200':
           description: "Lista de posts devuelta exitosamente"
 
-  /posts/create/{id}:
+  /posts/create/{user_id}:
     post:
       summary: "Crear un nuevo post para un usuario específico"
       tags: [Posts]
@@ -58,7 +58,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PostCreate'
+              $ref: '#/components/schemas/createPost'
       responses:
         '201':
           description: "Post creado"
@@ -111,9 +111,92 @@ paths:
         '404':
           description: "Post o Tag no encontrado"
 
+  #-------------------- TAGS --------------------
+  /tags:
+    get:
+      summary: "Obtener todos los tags"
+      tags: [Tags]
+      responses:
+        '200':
+          description: "Lista de tags devuelta exitosamente"
+
+  /tags/{id}:
+    get:
+      summary: "Obtener un tag específico por su ID"
+      tags: [Tags]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "ID del tag a buscar"
+      responses:
+        '200':
+          description: "Tag devuelto exitosamente (incluye posts asociados)"
+        '404':
+          description: "Tag no encontrado"
+    put:
+      summary: "Actualizar un Tag existente"
+      tags: [ Tags ]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "ID del tag a actualizar"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateTag'
+      responses:
+        '200':
+          description: "Tag actualizado"
+        '400':
+          description: "Error de validación (Ej: nombre corto)"
+        '404':
+          description: "Tag no encontrado"
+
+    delete:
+        summary: "Eliminar un Tag existente"
+        tags: [ Tags ]
+        parameters:
+          - in: path
+            name: id
+            required: true
+            schema:
+              type: integer
+            description: "ID del tag a eliminar"
+        responses:
+          '204':
+            description: "Tag eliminado"
+          '404':
+            description: "Tag no encontrado"
+
+  /tags/create:
+    post:
+      summary: "Crear un nuevo Tag"
+      tags: [Tags]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/createTag'
+      responses:
+          '201':
+            description: "Tag creado"
+          '400':
+            description: "Error de validación (Ej: nombre corto)"
+
+
+
+
 components:
   schemas:
-    # --- Esquemas definidos según tus Joi Schemas ---
     createUser:
       type: object
       required:
@@ -136,3 +219,26 @@ components:
           maxLength: 500
           example: "¡Este es mi primer post en Anti-Social Net!"
 
+    createTag:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          minLength: 3
+          maxLength: 100
+          example: "tecnología"
+
+
+
+    updateTag:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          minLength: 3
+          maxLength: 100
+          example: "tecnología"
