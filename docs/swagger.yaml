@@ -16,6 +16,94 @@ paths:
       responses:
         '200':
           description: "Lista de usuarios devuelta exitosamente"
+  /users/{id}/comments:
+    get:
+      summary: "Obtener todos los comentarios de un usuario específico por su ID"
+      tags: [ Users ]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "ID del usuario a buscar"
+      responses:
+        '200':
+          description: "Comentarios devueltos exitosamente"
+        '404':
+          description: "Usuario no encontrado"
+  /users/{id}/posts:
+    get:
+      summary: "Obtener todos los posts de un usuario específico por su ID"
+      tags: [ Users ]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "ID del usuario a buscar"
+      responses:
+        '200':
+          description: "Posts devueltos exitosamente"
+        '404':
+          description: "Usuario no encontrado"
+
+  /users/{id}:
+    get:
+      summary: "Obtener un usuario específico por su ID"
+      tags: [ Users ]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "ID del usuario a buscar"
+      responses:
+        '200':
+          description: "Usuario devuelto exitosamente (incluye posts y comentarios)"
+        '404':
+          description: "Usuario no encontrado"
+
+    put:
+      summary: "Actualizar un usuario existente"
+      tags: [ Users ]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            description: "ID del usuario a actualizar"
+      requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateUser'
+      responses:
+        '200':
+          description: "Usuario actualizado"
+        '404':
+          description: "Usuario no encontrado"
+
+    delete:
+      summary: "Eliminar un usuario existente"
+      tags: [ Users ]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "ID del usuario a eliminar"
+      responses:
+        '204':
+          description: "Usuario eliminado"
+        '404':
+          description: "Usuario no encontrado"
+
 
   /users/create:
     post:
@@ -42,10 +130,119 @@ paths:
         '200':
           description: "Lista de posts devuelta exitosamente"
 
+  /posts/{id}/comments:
+    get:
+      summary: "Obtener todos los comentarios de un post específico por su ID"
+      tags: [Posts]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "ID del post a buscar"
+      responses:
+        '200':
+          description: "Comentarios devueltos exitosamente"
+        '404':
+          description: "Post no encontrado"
+
+  /posts/{id}/tags:
+    get:
+      summary: "Obtener todos los tags asociados a un post específico por su ID"
+      tags: [Posts]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "ID del post a buscar"
+      responses:
+        '200':
+          description: "Tags devueltos exitosamente"
+        '404':
+          description: "Post no encontrado"
+
+  /posts/{id}/user:
+    get:
+      summary: "Obtener el usuario que creó un post específico por su ID"
+      tags: [Posts]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "ID del post a buscar"
+      responses:
+        '200':
+          description: "Usuario devuelto exitosamente"
+        '404':
+          description: "Post no encontrado"
+
+
+
+  /posts/{id}:
+    get:
+      summary: "Obtener un post específico por su ID"
+      tags: [Posts]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "ID del post a buscar"
+      responses:
+        '200':
+          description: "Post devuelto exitosamente (incluye comentarios, tags e imágenes)"
+        '404':
+          description: "Post no encontrado"
+
+    put:
+        summary: "Actualizar un post existente"
+        tags: [ Posts ]
+        parameters:
+            - in: path
+              name: id
+              required: true
+              schema:
+                type: integer
+              description: "ID del post a actualizar"
+        requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/updatePost'
+        responses:
+            '200':
+              description: "Post actualizado"
+            '400':
+              description: "Error de validación (Ej: texto vacío)"
+            '404':
+              description: "Post no encontrado"
+    delete:
+      summary: "Eliminar un Post existente"
+      tags: [ Posts ]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "ID del post a eliminar"
+      responses:
+        '204':
+          description: "Post eliminado"
+        '404':
+          description: "Post no encontrado"
+
   /posts/create/{user_id}:
     post:
       summary: "Crear un nuevo post para un usuario específico"
-      tags: [Posts]
+      tags: [ Posts ]
       parameters:
         - in: path
           name: id
@@ -66,23 +263,6 @@ paths:
           description: "ID inválido o error de validación"
         '404':
           description: "Usuario no encontrado"
-
-  /posts/{id}:
-    get:
-      summary: "Obtener un post específico por su ID"
-      tags: [Posts]
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: integer
-          description: "ID del post a buscar"
-      responses:
-        '200':
-          description: "Post devuelto exitosamente (incluye comentarios, tags e imágenes)"
-        '404':
-          description: "Post no encontrado"
 
   /posts/{id}/create-tag:
     post:
@@ -208,6 +388,17 @@ components:
           maxLength: 30
           example: "juanperez"
 
+    updateUser:
+      type: object
+      required:
+        - nickName
+      properties:
+        nickName:
+          type: string
+          minLength: 5
+          maxLength: 30
+          example: "juanperez"
+
     createPost:
       type: object
       required:
@@ -218,6 +409,17 @@ components:
           minLength: 1
           maxLength: 500
           example: "¡Este es mi primer post en Anti-Social Net!"
+
+    updatePost:
+      type: object
+      required:
+        - texto
+      properties:
+        texto:
+          type: string
+          minLength: 1
+          maxLength: 500
+          example: "¡Esta es una actualización de mi post en Anti-Social Net!"
 
     createTag:
       type: object

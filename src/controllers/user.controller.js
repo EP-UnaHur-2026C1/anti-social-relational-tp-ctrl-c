@@ -14,7 +14,19 @@ const getUsers = async (req, res) => {
 const getUserById = async (req, res) => {
     try {
         const id = req.params.id;
-        const user = await User.findByPk(id);
+        const user = await User.findByPk(id,{
+            include:[
+                {
+                    model: Comment,
+                    as: 'comentarios'
+                },
+                {
+                    model: Post,
+                    as: 'posts',
+                    attributes:['texto','fecha']
+                }
+            ]
+        });
 
         res.status(200).json(user);
     }catch (error) {
