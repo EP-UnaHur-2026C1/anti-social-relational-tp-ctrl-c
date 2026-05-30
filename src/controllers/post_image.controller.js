@@ -24,8 +24,16 @@ const getPostImageById = async (req, res) => {
 
 const createPostImage = async (req, res) => {
     try {
-        const data = req.body;
-        const newPostImage = await Post_Image.create(data);
+        const {post_id} = req.body;
+
+        if(!req.file){
+            return res.status(400).json({message: 'No se ha proporcionado una imagen'});
+        }
+        const urlLocal = `http://localhost:3000/${req.file.filename}`;
+        const newPostImage = await Post_Image.create({
+            url: urlLocal,
+            post_id
+        });
         res.status(201).json(newPostImage);
     }
     catch (error) {
@@ -42,7 +50,7 @@ const updatePostImage = async (req, res) => {
                 where: {id}
             }
         )
-        res.status(200).json(newPostImage);
+        res.status(201).json(newPostImage);
     }catch (error) {
         res.status(500).json({message: 'Error al actualizar el post'});
     }

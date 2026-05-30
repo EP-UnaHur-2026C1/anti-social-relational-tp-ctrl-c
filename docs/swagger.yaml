@@ -471,6 +471,86 @@ paths:
 
 
 
+#--------------- Post Image -----------------------------
+  /post_Images:
+    get:
+      summary: "Obtener todas las imágenes de posts"
+      tags: [Post Images]
+      responses:
+        '200':
+          description: "Lista de imágenes devuelta exitosamente"
+  /post_Images/{id}:
+    get:
+      summary: "Obtener una imagen de post específica por su ID"
+      tags: [Post Images]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "ID de la imagen a buscar"
+      responses:
+        '200':
+          description: "Imagen devuelta exitosamente"
+        '404':
+          description: "Imagen no encontrada"
+
+    delete:
+      summary: "Eliminar una imagen de post existente"
+      tags: [Post Images]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "ID de la imagen a eliminar"
+      responses:
+        '204':
+          description: "Imagen eliminada"
+        '404':
+          description: "Imagen no encontrada"
+    put:
+        summary: "Actualizar una imagen de post existente"
+        tags: [Post Images]
+        parameters:
+            - in: path
+              name: id
+              required: true
+              schema:
+                type: integer
+              description: "ID de la imagen a actualizar"
+        requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/updatePostImage'
+        responses:
+            '200':
+              description: "Imagen actualizada"
+            '400':
+              description: "Error de validación (Ej: URL inválida)"
+            '404':
+              description: "Imagen no encontrada"
+
+  /post_Images/create/:
+    post:
+      summary: "Crear una nueva imagen de post"
+      tags: [Post Images]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createPostImage'
+      responses:
+        '201':
+          description: "Imagen creada"
+        '400':
+          description: "Error de validación (Ej: URL inválida)"
+
 
 components:
   schemas:
@@ -541,3 +621,26 @@ components:
           minLength: 3
           maxLength: 100
           example: "tecnología"
+
+    createPostImage:
+      type: object
+      required:
+        - url
+        - post_id
+      properties:
+        url:
+          type: string
+          format: uri
+          example: "https://example.com/image.jpg"
+        post_id:
+          type: integer
+          example: 1
+    updatePostImage:
+      type: object
+      required:
+        - url
+      properties:
+        url:
+          type: string
+          format: uri
+          example: "https://example.com/updated_image.jpg"

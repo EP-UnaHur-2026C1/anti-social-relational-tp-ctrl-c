@@ -17,6 +17,7 @@ const swaggerDocument = YAML.load(path.join(__dirname, '../docs/swagger.yaml'));
 
 app.use(express.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/assets', express.static(path.join(__dirname, '../assets')));
 
 app.use('/comments', commentsRouter);
 app.use('/users', userRouter);

@@ -40,6 +40,20 @@ Content-Type: application/json
 {
   "tag_id": 1
 }
+###
+POST http://localhost:3000/post_Images/create
+Content-Type: multipart/form-data; boundary=MiBoundaryLoco
+
+--MiBoundaryLoco
+Content-Disposition: form-data; name="post_id"
+
+1
+--MiBoundaryLoco
+Content-Disposition: form-data; name="image"; filename="prueba.jpg"
+Content-Type: image/jpeg
+
+< ./assets/ANTI-SOCIALNET.jpeg
+--MiBoundaryLoco--
 
 ###
 GET http://localhost:3000/comments/3
