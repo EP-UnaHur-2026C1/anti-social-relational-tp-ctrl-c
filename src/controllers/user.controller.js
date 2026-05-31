@@ -24,6 +24,11 @@ const getUserById = async (req, res) => {
                     model: Post,
                     as: 'posts',
                     attributes:['texto','fecha']
+                },
+                {
+                    model: User,
+                    as: 'followers',
+                    attributes:['id', 'nickName']
                 }
             ]
         });
@@ -112,7 +117,38 @@ const getPostsByUserId = async (req, res) => {
     }
 }
 
+const seguirUsuario = async (req, res) => {
+    try {
+        const myId = Number(req.params.id);
+        const idToFollow = Number(req.params.idToFollow);
+        const miUsuario = await User.findByPk(myId);
+        const usuarioAseguir = await User.findByPk(idToFollow);
+        await miUsuario.addFollowing(usuarioAseguir);
 
+        res.status(200).json({message: 'Comenzaste a seguir a este usuario exitosamente'});
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({message: 'Error', error: error.message});
+    }
+
+}
+
+
+const dejarDeSeguirUsuario = async (req, res) => {
+    try {
+        const myId = Number(req.params.id);
+        const idToUnfollow = Number(req.params.idToFollow);
+        const miUsuario = await User.findByPk(myId);
+        const usuarioADejarDeSeguir = await User.findByPk(idToUnfollow);
+        await miUsuario.removeFollowing(usuarioADejarDeSeguir);
+
+        res.status(200).json({message: 'Dejaste de seguir a este usuario exitosamente'});
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({message: 'Error', error: error.message});
+    }
+
+}
 
 
 module.exports = {getUsers,
@@ -121,5 +157,7 @@ module.exports = {getUsers,
     createUser,
     updateUser,
     deleteUser,
+    seguirUsuario,
+    dejarDeSeguirUsuario,
     getCommentsByUserId
 }

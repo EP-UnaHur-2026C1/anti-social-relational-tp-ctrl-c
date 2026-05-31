@@ -23,7 +23,7 @@ POST http://localhost:3000/users/create
 Content-Type: application/json
 
 {
-  "nickName": "usuario 1"
+  "nickName": "usuario 3"
 }
 
 ###
@@ -55,10 +55,19 @@ Content-Type: image/jpeg
 < ./assets/ANTI-SOCIALNET.jpeg
 --MiBoundaryLoco--
 
+
+
 ###
+POST http://localhost:3000/users/1/seguir/2
+
+
+###
+DELETE http://localhost:3000/users/1/unfollow/2
+###
+
 GET http://localhost:3000/comments/3
 ###
-GET http://localhost:3000/users/6
+GET http://localhost:3000/users/2
 
 ###
 GET http://localhost:3000/comments/6

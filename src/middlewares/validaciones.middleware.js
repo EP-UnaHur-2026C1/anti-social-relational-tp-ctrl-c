@@ -19,4 +19,31 @@ const validaExisteMiddleware =  (Modelo) => {
     }
 }
 
-module.exports = {validaIdNumerico, validaExisteMiddleware};
+const validaFollow = (ModeloUser) => {
+    return async (req, res, next) => {
+
+        const myId = Number(req.params.id);
+        const idToFollow = Number(req.params.idToFollow);
+
+
+        if (!Number.isInteger(idToFollow) || idToFollow <= 0) {
+            return res.status(400).json({ error: 'El ID a seguir debe ser un número entero positivo' });
+        }
+
+
+        if (myId === idToFollow) {
+            return res.status(400).json({ error: 'No puedes seguirte a ti mismo' });
+        }
+
+
+        const usuarioDestino = await ModeloUser.findByPk(idToFollow);
+        if (!usuarioDestino) {
+            return res.status(404).json({ error: `El usuario a seguir (ID: ${idToFollow}) no existe` });
+        }
+
+        next();
+    }
+}
+
+
+module.exports = {validaIdNumerico, validaExisteMiddleware, validaFollow};
