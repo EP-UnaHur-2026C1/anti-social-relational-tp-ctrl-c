@@ -1,8 +1,19 @@
 const { Post,Comment,User,Tag,Post_Image } = require('../db/models');
+const NodeCache = require('node-cache');
+const cache = new NodeCache({ stdTTL: 600, checkperiod: 300 });
 
 const getPosts = async (req, res) => {
     try {
+        const cachedPosts = cache.get('allPosts');
+        if (cachedPosts) {
+            return res.status(200).json(cachedPosts);
+        }
+
+
         const post = await Post.findAll();
+
+        cache.set("allPosts", post);
+
         res.status(200).json(post);
     }catch (error) {
         res.status(500).json({message: 'Error al obtener los posts'});
@@ -13,6 +24,13 @@ const getPosts = async (req, res) => {
 const getPostById = async (req, res) => {
     try {
         const id = req.params.id;
+        const cacheKey = `postId${id}`;
+
+        const cachedPost = cache.get(cacheKey);
+        if (cachedPost) {
+            return res.status(200).json(cachedPost);
+        }
+
         const post = await Post.findByPk(id, {
             include: [
                 {
@@ -34,6 +52,11 @@ const getPostById = async (req, res) => {
             ]
         });
 
+        if(post){
+            cache.set(cacheKey, post);
+        }
+
+
         res.status(200).json(post);
     }catch (error) {
         res.status(500).json({message: `Error al obtener el post`});
@@ -48,6 +71,9 @@ const createPost = async (req, res) => {
             texto,
             user_id: userId
         });
+
+        cache.del('allPosts');
+
         res.status(201).json(newPost);
     }
     catch (error) {
@@ -77,6 +103,10 @@ const deletePost = async (req, res) => {
         await Post.destroy({
             where: {id}
         });
+        cache.del('allPosts');
+        cache.del(`postId${id}`);
+
+
         res.status(204).json({message: 'Post eliminado'});
     }catch (error) {
         console.log("Error: ", error)
