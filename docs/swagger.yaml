@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: "UNAHUR Anti-social Net API"
   description: "API MVP para la red social Anti-social Net de la UNAHUR"
-  version: "1.0.1"
+  version: "1.0.2"
 servers:
     - url: "http://localhost:3000"
       description: "Servidor local"
@@ -89,11 +89,11 @@ paths:
               properties:
                 content:
                   type: string
-                  example: "Este es un comentario de ejemplo."
-                authorId:
+                  example: "¡Este es un nuevo comentario en Anti-Social Net!"
+                postId:
                   type: integer
                   example: 1
-                postId:
+                userId:
                   type: integer
                   example: 1
       responses:
@@ -217,6 +217,51 @@ paths:
           description: "Usuario creado"
         '400':
           description: "Error de validación (Ej: nickName corto)"
+
+  /users/:id/seguir/:idToFollow:
+    post:
+      summary: "Seguir a otro usuario"
+      tags: [ Users ]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "ID del usuario que sigue"
+        - in: path
+          name: idToFollow
+          required: true
+          schema:
+            type: integer
+          description: "ID del usuario a seguir"
+      responses:
+        '200':
+          description: "Usuario seguido exitosamente"
+        '404':
+          description: "Usuario no encontrado"
+  /users/:id/unfollow/:idToUnfollow:
+    delete:
+      summary: "Dejar de seguir a otro usuario"
+      tags: [ Users ]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "ID del usuario que deja de seguir"
+        - in: path
+          name: idToUnfollow
+          required: true
+          schema:
+            type: integer
+          description: "ID del usuario a dejar de seguir"
+      responses:
+        '200':
+          description: "Usuario dejado de seguir exitosamente"
+        '404':
+          description: "Usuario no encontrado"
 
   # -------------------- POSTS --------------------
   /posts:
