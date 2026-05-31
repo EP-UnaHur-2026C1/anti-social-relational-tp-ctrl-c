@@ -1,12 +1,14 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const db = require('./db/models').sequelize;
 const commentsRouter = require('./routes/comments.route');
 const userRouter = require('./routes/user.route');
 const postRouter = require('./routes/post.route');
 const postImageRouter = require('./routes/post_image.route');
 const tagRouter = require('./routes/tag.route');
+
 
 // ----------------- Swagger -------------------
 

@@ -1,5 +1,5 @@
 ###
-POST http://localhost:3000/comments/create
+POST http://localhost:4002/comments/create
 Content-Type: application/json
 
 {
@@ -9,7 +9,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:3000/posts/create/1
+POST http://localhost:4002/posts/create/1
 Content-Type: application/json
 
 {
@@ -19,7 +19,7 @@ Content-Type: application/json
 
 
 ###
-POST http://localhost:3000/users/create
+POST http://localhost:4002/users/create
 Content-Type: application/json
 
 {
@@ -27,21 +27,21 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:3000/tags/create
+POST http://localhost:4002/tags/create
 Content-Type: application/json
 
 {
   "name": "tag 1"
 }
 ###
-POST http://localhost:3000/posts/1/create-tag
+POST http://localhost:4002/posts/1/create-tag
 Content-Type: application/json
 
 {
   "tag_id": 1
 }
 ###
-POST http://localhost:3000/post_Images/create
+POST http://localhost:4002/post_Images/create
 Content-Type: multipart/form-data; boundary=MiBoundaryLoco
 
 --MiBoundaryLoco
@@ -58,32 +58,32 @@ Content-Type: image/jpeg
 
 
 ###
-POST http://localhost:3000/users/1/seguir/2
+POST http://localhost:4002/users/1/seguir/2
 
 
 ###
-DELETE http://localhost:3000/users/1/unfollow/2
+DELETE http://localhost:4002/users/1/unfollow/2
 ###
 
-GET http://localhost:3000/comments/3
+GET http://localhost:4002/comments/3
 ###
-GET http://localhost:3000/users/2
+GET http://localhost:4002/users/2
 
 ###
-GET http://localhost:3000/comments/6
+GET http://localhost:4002/comments/6
 ###
-GET http://localhost:3000/tags/1
+GET http://localhost:4002/tags/1
 ###
-GET http://localhost:3000/posts/1
+GET http://localhost:4002/posts/1
 ###
-GET http://localhost:3000/users/1/posts
+GET http://localhost:4002/users/1/posts
 ###
-GET http://localhost:3000/posts/1/user
+GET http://localhost:4002/posts/1/user
 
 ###
-GET http://localhost:3000/posts/1/comments
+GET http://localhost:4002/posts/1/comments
 ###
-GET http://localhost:3000/posts/1/tags
+GET http://localhost:4002/posts/1/tags
 
 ###
-DELETE http://localhost:3000/posts/1
+DELETE http://localhost:4002/posts/1
