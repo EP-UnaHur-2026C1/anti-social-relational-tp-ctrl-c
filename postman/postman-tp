@@ -1,0 +1,578 @@
+{
+  "info": {
+    "_postman_id": "3f1231cf-7cbc-41a0-baf4-63a14d221a4c",
+    "name": "My Collection",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54018524",
+    "_collection_link": "https://go.postman.co/collection/54018524-3f1231cf-7cbc-41a0-baf4-63a14d221a4c?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "postman",
+      "item": [
+        {
+          "name": "crearComentario",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"contenido\": \"Comentario 5\",\r\n    \"post_id\": 2,\r\n    \"user_id\": 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:4002/comments/create",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4002",
+              "path": [
+                "comments",
+                "create"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "crearPost",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"texto\": \"Post 1\"\r\n\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:4002/posts/create/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4002",
+              "path": [
+                "posts",
+                "create",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "crearUsuario",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nickName\": \"usuario 3\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:4002/users/create",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4002",
+              "path": [
+                "users",
+                "create"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "crearTag",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"tag 1\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:4002/tags/create",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4002",
+              "path": [
+                "tags",
+                "create"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "agregarAPostUnaEtiqueta",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"tag_id\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:4002/posts/1/create-tag",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4002",
+              "path": [
+                "posts",
+                "1",
+                "create-tag"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "crearPostConImagen",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "post_id",
+                  "value": "4",
+                  "type": "text",
+                  "uuid": "10a4f4c5-4608-49e7-abbb-3ae54ffb1387"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "uuid": "9f01fa5d-ebb4-4561-b57b-384c43681473",
+                  "src": "/C:/Users/miguel/Desktop/tp-persistencia/anti-social-relational-tp-ctrl-c/assets/ANTI-SOCIALNET.jpeg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:4002/post_Images/create",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4002",
+              "path": [
+                "post_Images",
+                "create"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "hacerQueUsuario1SigaAUsuario2",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:4002/users/1/seguir/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4002",
+              "path": [
+                "users",
+                "1",
+                "seguir",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "hacerQueUsuario1DejeDeSeguirAUsuario2",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:4002/users/1/unfollow/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4002",
+              "path": [
+                "users",
+                "1",
+                "unfollow",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "eliminarPostPorID",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:4002/posts/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4002",
+              "path": [
+                "posts",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "obtenerTodosLosComentarios",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:4002/comments/3",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4002",
+              "path": [
+                "comments",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "buscarUsuarioPorID",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:4002/users/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4002",
+              "path": [
+                "users",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "buscarComentarioPorID",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:4002/comments/6",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4002",
+              "path": [
+                "comments",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "buscarTagPorID",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:4002/tags/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4002",
+              "path": [
+                "tags",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "buscarPostPorID",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:4002/posts/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4002",
+              "path": [
+                "posts",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "obtenerLosPostDelUsuario",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:4002/users/1/posts",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4002",
+              "path": [
+                "users",
+                "1",
+                "posts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "obtenerElUsuarioAsosiadoAUnPost",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:4002/posts/1/user",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4002",
+              "path": [
+                "posts",
+                "1",
+                "user"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "obtenerLosComentariosAsociadosAUnPost",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:4002/posts/1/comments",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4002",
+              "path": [
+                "posts",
+                "1",
+                "comments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "http://localhost:4002/posts/1/tags",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:4002/posts/1/tags",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4002",
+              "path": [
+                "posts",
+                "1",
+                "tags"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "obtenerTodosLosPost",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:4002/posts",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4002",
+              "path": [
+                "posts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "obtenerTodosLosUsuarios",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:4002/users",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4002",
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "obtenerTodosLosTag",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:4002/tags",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4002",
+              "path": [
+                "tags"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
